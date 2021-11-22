@@ -1,5 +1,5 @@
 var likeButton = document.getElementsByClassName("like");
-var DeleteButton = document.getElementsByClassName("Delete");
+var Delete = document.getElementsByClassName("Delete");
 
 
 
@@ -49,7 +49,7 @@ Array.from(commentButton).forEach(function (element) {
 
 Array.from(Delete).forEach(function(element) {
   element.addEventListener('click', function(){
-    const postId = this.parentNode.parentNode.childNodes[1].innerText
+    const postId = element.dataset.value;
     fetch('posts', {
       method: 'delete',
       headers: {

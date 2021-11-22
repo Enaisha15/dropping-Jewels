@@ -60,7 +60,6 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   
   //feed page
   app.get("/feed", function (req, res) {
-    
     db.collection("posts")
       .find()
       .toArray((err, result) => {
@@ -228,7 +227,7 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   });
 
   app.delete("/messages", (req, res) => {
-    db.collection("messages").findOneAndDelete(
+    db.collection("post").findOneAndDelete(
       { name: req.body.name, msg: req.body.msg },
       (err, result) => {
         if (err) return res.send(500, err);
