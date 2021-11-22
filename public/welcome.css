@@ -1,0 +1,214 @@
+body {
+  margin:0;
+  font-family: 'Inconsolata', monospace;
+  background-color: purple;
+  align-items: center;
+}
+
+#terminal {
+  position:relative;
+  top:100px;
+  margin:0 auto;
+  width:498px;
+  height:443px;
+  align-items: center;
+  background:#d7d7d7;
+  border-radius:2px;
+  border:1px solid #222;
+  box-shadow:1px 1px #222,
+    inset 1px 1px #fff;
+  text-shadow:0 1px #ededed;
+}
+
+#terminal:before {
+  position:absolute;
+  top:6px;
+  left:6px;
+  width:16px;
+  height:16px;
+  background:linear-gradient(135deg, #b1b1b1, #d7d7d7);
+  border:1px solid #222;
+  box-shadow:inset 1px 1px #fff,
+    1px 1px #fff;
+  content:'';
+}
+
+#terminal:after {
+  position:absolute;
+  top:6px;
+  left:476px;
+  width:16px;
+  height:16px;
+  background:linear-gradient(135deg, #b1b1b1, #d7d7d7);
+  border:1px solid #222;
+  box-shadow:inset 1px 1px #fff,
+    1px 1px #fff;
+  content:'';
+}
+
+#window {
+  position:absolute;
+  padding:10px 20px;
+  top:30px;
+  left:10px;
+  width:450px;
+  height:380px;
+  background:#464646;
+  box-shadow:-1px -1px #b4b4b5,
+    1px 1px #fff;
+  font-size:15px;
+  color:white;
+  content:'';
+  text-shadow:none;
+}
+
+#header {
+  color:#222;
+  text-align:center;
+  line-height:28px;
+  font-size:20px;
+}
+
+#header:before {
+  position:absolute;
+  top:6px;
+  left:30px;
+  width:175px;
+  height:1px;
+  background:#ebebeb;
+  box-shadow:0 1px #b7b7b8,
+    0 4px #ebebeb, 0 5px #b7b7b8,
+    0 8px #ebebeb, 0 9px #b7b7b8,
+    0 12px #ebebeb, 0 13px #b7b7b8,
+    0 16px #ebebeb, 0 17px #b7b7b8,
+    265px 0px #ebebeb, 265px 1px #b7b7b8,
+    265px 4px #ebebeb, 265px 5px #b7b7b8,
+    265px 8px #ebebeb, 265px 9px #b7b7b8,
+    265px 12px #ebebeb, 265px 13px #b7b7b8,
+    265px 16px #ebebeb, 265px 17px #b7b7b8;
+  content:'';
+}
+
+#topbar {
+  position:relative;
+  width:100vw;
+  height:30px;
+  background:#d7d7d7;
+  border:1px solid #222;
+  border-width: 1px 0 1px 0;
+  color:#222;
+  text-shadow:0 1px #ededed;
+  font-size:20px;
+  line-height:28px;
+  box-shadow:inset 0 1px #ededed;
+}
+
+#topbar:before {
+  float:right;
+  margin-right:15px;
+  content:'13:37';
+}
+
+#hackerName, #clear {
+  opacity:0;
+}
+
+cursor1, cursor2 {
+  animation-duration: 1s;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0% {opacity:1;}
+  49% {opacity:1;}
+  50% {opacity:0;}
+  100% {opacity:0;}
+}
+
+#buttons{
+  width:90%;
+  margin:auto;
+  text-align: center;
+}
+
+#buttons a{
+  margin-right:10px;
+  font-size:20px;
+  background-color:black;
+  color:white;
+  padding:5px;
+}
+
+/* ----------------------------------------------------------------
+	Canvas: Forum
+-----------------------------------------------------------------*/
+
+* {
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+
+h1, h2, h3, h4, h5, h6, body,
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
+.page-link {
+	color: #2F2E41;
+}
+
+.alt-color,
+.h-alt-color:hover { color: #2F2E41 !important; }
+
+.bg-alt,
+.h-bg-alt:hover,
+.page-item:not(.disabled):hover .page-link,
+.page-item.active .page-link {
+	background-color: #2F2E41 !important;
+	border-color: #2F2E41 !important;
+}
+
+.bg-envato,
+.h-bg-envato:hover {
+	background-color: #79B34C !important;
+}
+/* Search Overlay */
+.search-overlay.top-search-open .top-search-parent #logo,
+.search-overlay.top-search-open .top-search-parent .primary-menu,
+.search-overlay.top-search-open .top-search-parent .header-misc > *:not(#top-search),
+.top-search-open .top-search-parent #primary-menu-trigger { opacity: 1; }
+
+.top-search-open #top-search a i.icon-line-cross {
+	font-size: inherit;
+	color: #F9BE79;
+}
+
+.search-overlay .top-search-form {
+	top: 81px;
+	height: calc(100vh - 81px);
+	transition: all .4s ease;
+}
+
+.search-overlay .sticky-header-shrink .top-search-form {
+	top: 61px;
+	height: calc(100vh - 61px);
+}
+
+.search-overlay .dark.top-search-form input {
+	border: 2px solid rgba(255, 255, 255, 0.7) !important;
+	height: calc(2em + 1rem + 2px);
+	padding: .5rem 1rem;
+	font-size: 1.25rem;
+	line-height: 1.5;
+	border-radius: .3rem;
+	text-align: left;
+	letter-spacing: 0px;
+	font-weight: 500;
+	margin: 0;
+	max-width: 100%;
+	color: #EEE;
+}
+
+.search-overlay .dark.top-search-form input:focus,
+.search-overlay .dark.top-search-form input:active {
+	border-color: #F9BE79 !important;
+}

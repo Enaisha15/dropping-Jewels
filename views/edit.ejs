@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit profile</title>
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+  
+
+   
+
+<header>
+</header>
+<body>
+
+  <ul class="messages">
+      <li class="message">
+          <h4><%= user[0].name%></h4>
+          <img src="<%= user[0].profilePic%>" alt="">
+        </a>  
+      </li>
+    </ul>
+
+  <!-- <div class="form-check">
+    <button >job title</button>
+    <button >name</button>
+    <button >city state</button>
+    <button >profile pic</button>
+    <button >mentor</button>
+    <button >teacher</button>
+    <button >student</button>  -->
+
+
+ 
+    <div class="box">
+  <form action="/upDateProfile" enctype="multipart/form-data" method="POST">
+    <input type="text" name="name">
+    <input type="text" name="cityState">
+    <input type="file" name="profilePic">
+    <input type="text" name="jobTitle">
+    <button type="submit">submit</button> 
+    <select name="role" id="">
+      <option value="teacher">teacher</option>
+      <option value="student">student</option>
+      <option value="mentor">Mentor</option>
+    </select>
+    
+    
+  </form>
+  </div>
+  </body>
+</html>
+<!-- drop down for selection for what each user would chose student , teacher, mentor  -->

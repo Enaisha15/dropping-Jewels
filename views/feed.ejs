@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <title>Homework feed</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/9bd7c226d7.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <div class="container-fluid">
+
+  <div class="row" style="background-color: black;">DroppingJewels
+  </div>
+  <div class="contanier">
+
+  <div class="row" style="background-color: aquamarine;"></div>
+  <div class="col-3">spacing</div>
+  <div class="col-3">picture</div>
+  <div class="col-3">description</div>
+  <div class="col-3">spacing</div>
+
+  <div class="row" style="background-color: palegreen;">menu</div>
+  <div class="row" style="background-color: red;">pictures</div>
+
+
+
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1>Homework Help</h1>
+        <a href="/profile">Your Profile</a>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+
+        <div class="col-sm-6">
+          <h3>Questions</h3>
+          <ul class="messages">
+          <% for(var i=0; i<posts.length; i++) {%>
+            <li class="message">
+              <a href="/post/<%= posts[i]._id %>">
+              <h4><%= posts[i].caption %></h4>
+              <img src="<%= posts[i].img %>" alt="">
+              <a href="/page/<%= posts[i].postedBy %>"></a>
+              </a>
+              <button class="like" data-value="<%=posts[i]._id %>">like</button>
+              <span><%= posts[i].like %></span>
+              <button class="Delete" data-value="<%=posts[i]._id %>">Delete</button>
+            
+              <span><%= posts[i].Delete %></span>
+
+
+              <%# View Comments %>
+              <ul>
+                <% for(var j=0; j<posts[i].comment.length; j++) {%>
+                  <li>
+                    <p> <%= posts[i].comment[j].comment %> </p> 
+                  </li>
+                <% } %>
+              </ul>
+
+              <button class="comment"><a href="/post/comments/<%= posts[i]._id %>">give feedback</a></button>
+            </li>
+          <% } %>
+          </ul>
+
+
+</div>
+
+
+<script src="/public/main.js"></script>
+
+</body>
+</html>
