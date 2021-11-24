@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <title>Dropping Jewels</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span>Your Profile</h1>
+        <a href="/feed">Homework Feed</a>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+        <div class="col-sm-6">
+          <h3>Posts</h3>
+
+          <p>Questions you've asked so far:</p>
+          <ul class="messages">
+          <% for(var i=0; i<posts.length; i++) {%>
+            <li class="message">
+              <a href="/post/<%= posts[i]._id %>">
+                <h4><%= posts[i].caption %></h4>
+                <img src="<%= posts[i].img %>" alt="">
+              </a>  
+            </li>
+          <% } %>
+          </ul>
+
+          <h2>Ask a question:</h2>
+          <p>Input a homework question. You can also add a picture of your problem if you want the mentors to see your problem too. </p>
+        <% if (user.local.email) { %>
+          <form action="/makePost" enctype="multipart/form-data" method="POST">
+            <textarea type="text" name="caption" placeholder="your question" required></textarea>
+            <input type="file" name="file-to-upload">
+            <button type="submit">Ask</button>
+          </form>
+        <% } %>
+
+</div>
+
+<script src="/public/main.js"></script>
+
+</body>
+</html>

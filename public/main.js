@@ -1,6 +1,7 @@
 var likeButton = document.getElementsByClassName("like");
 var Delete = document.getElementsByClassName("Delete");
-
+var searchi = document.getElementById("searchinput")
+var searchb = document.getElementById('searchbutton')
 
 
 Array.from(likeButton).forEach(function (element) {
@@ -47,10 +48,17 @@ Array.from(commentButton).forEach(function (element) {
   });
 });
 
+ searchb.addEventListener('click', function(e){
+      window.location.href = "/search/"+searchi.value
+    })
+  
+
 Array.from(Delete).forEach(function(element) {
-  element.addEventListener('click', function(){
-    const postId = element.dataset.value;
-    fetch('posts', {
+  element.addEventListener('click', function(e){
+    console.log(e.target)
+    const postId = e.target.dataset.value;
+    console.log(postId)
+    fetch('messages', {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json'

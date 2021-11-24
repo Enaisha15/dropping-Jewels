@@ -96,6 +96,16 @@ module.exports = function (app, passport, db, multer, ObjectId) {
       });
   });
 
+  app.get("/search/:text", isLoggedIn, function (req, res) {
+    db.collection("posts")
+      .find({ $text: { $search: req.params.text } })
+      .toArray((err, result) => {
+        if (err) return console.log(err);
+        res.render("page.ejs", {
+          posts: result,
+        });
+      });
+  });
   // LOGOUT ==============================
   app.get("/logout", function (req, res) {
     req.logout();
@@ -227,8 +237,8 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   });
 
   app.delete("/messages", (req, res) => {
-    db.collection("post").findOneAndDelete(
-      { name: req.body.name, msg: req.body.msg },
+    db.collection("posts").findOneAndDelete(
+      {_id:ObjectId(req.body.postId)},
       (err, result) => {
         if (err) return res.send(500, err);
         res.send("Message deleted!");
