@@ -253,7 +253,7 @@ app.get("/mentorfeed", function (req, res) {
     .find()
     .toArray((err, result) => {
       if (err) return console.log(err);
-      res.render("mentorfeed.ejs", {
+      res.render("feed1.ejs", {
         posts: result,
       });
     });
