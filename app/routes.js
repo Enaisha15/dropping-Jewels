@@ -15,7 +15,7 @@ module.exports = function (app, passport, db, multer, ObjectId) {
 
   // show the home page (will also have our login links)
   app.get("/", function (req, res) {
-    res.render("index.ejs");
+    res.render("home.ejs");
   });
 
   // PROFILE SECTION =========================
@@ -59,7 +59,7 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   });
   
   //feed page
-  app.get("/feed", function (req, res) {
+  app.get("/feed.ejs", function (req, res) {
     db.collection("posts")
       .find()
       .toArray((err, result) => {
