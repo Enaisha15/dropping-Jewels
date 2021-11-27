@@ -59,7 +59,7 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   });
   
   //feed page
-  app.get("/feed.ejs", function (req, res) {
+  app.get("/feed", function (req, res) {
     db.collection("posts")
       .find()
       .toArray((err, result) => {
@@ -70,7 +70,7 @@ module.exports = function (app, passport, db, multer, ObjectId) {
       });
   });
 
-  app.get("/post/comments/:zebra", isLoggedIn, function (req, res) {
+  app.get("/post/:zebra", isLoggedIn, function (req, res) {
     let postId = ObjectId(req.params.zebra);
     console.log(postId);
     db.collection("posts")
@@ -82,15 +82,13 @@ module.exports = function (app, passport, db, multer, ObjectId) {
         });
       });
   });
-// find poster
-  //profile page
   app.get("/page/:id", isLoggedIn, function (req, res) {
-    let postId = ObjectId(req.params.id);
+    let userId = ObjectId(req.params.id);
     db.collection("posts")
-      .find({ postedBy: postId })
+      .find({ postedBy: userId })
       .toArray((err, result) => {
         if (err) return console.log(err);
-        res.render("page.ejs", {
+        res.render("posts.ejs", {
           posts: result,
         });
       });
@@ -101,7 +99,7 @@ module.exports = function (app, passport, db, multer, ObjectId) {
       .find({ $text: { $search: req.params.text } })
       .toArray((err, result) => {
         if (err) return console.log(err);
-        res.render("page.ejs", {
+        res.render("searchresults.ejs", {
           posts: result,
         });
       });
@@ -246,14 +244,14 @@ module.exports = function (app, passport, db, multer, ObjectId) {
     );
   });
 // mentor stuff 
-
-app.get("/mentorfeed", function (req, res) {
-    
+// this renders the page with post with all the posts // this renders the mentor feed 
+// when i click on the post the mentor can veiw the post and reply 
+app.get("/mentorfeed", function (req, res) {  
   db.collection("posts")
     .find()
     .toArray((err, result) => {
       if (err) return console.log(err);
-      res.render("feed1.ejs", {
+      res.render("posts.ejs", {
         posts: result,
       });
     });
@@ -268,17 +266,21 @@ app.get("/mentorfeed", function (req, res) {
   app.get("/login", function (req, res) {
     res.render("login.ejs", { message: req.flash("loginMessage") });
   });
+  app.get("/loginsignup", function (req, res) {
+    res.render("login.ejs", { message: req.flash("loginMessage") });
+  });
+
 
   app.get("/mentorlogin", function (req, res) {
     res.render("mentorlogin.ejs", { message: req.flash("loginMessage") });
 
   });
 
-  // process the login form
+  //process the login form
   app.post(
     "/login",
     passport.authenticate("local-login", {
-      successRedirect: "/feed", // redirect to the secure profile section
+      successRedirect: "/profile", // redirect to the secure profile section
       failureRedirect: "/login", // redirect back to the signup page if there is an error
       failureFlash: true, // allow flash messages
     })

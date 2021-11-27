@@ -52,13 +52,16 @@
                 <% } %>
               </ul>>
               
-
+             <form method= post action="/post/comments/submit">
               <%# Post Comment %>
-              <input class="userComment" type="text" placeholder="write a comment...">
-              <button type="submit" class="sendComment" data-value="<%=posts[i]._id %>">post</button>
+              <input name="comment" class="userComment" type="text" placeholder="write a comment...">
+              <input name="postId" value="<%=posts[i]._id%>" class="userComment" type="hidden" placeholder="write a comment...">
 
+              <button type="submit" class="sendComment" data-value="<%=posts[i]._id %>">post</button>
+            </form>
             </li>
           <% } %>
+       
         </ul>
       </div>
     </div>

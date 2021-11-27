@@ -1,0 +1,9 @@
+// orgianl files 
+connect - local ejs is authn file 
+edit.ejs? why did i add it 
+feed.ejs contains students post // comments mentors feed.ejs / suppose to be the same student can post and reply as well as mentors 
+mentorfeed.ejs -- {just shows post can't comment} should be landing page for the mentor after login same as feed.ejs should be the same for student landing page  
+login.ejs is for student login.ejs
+mentorprofile.ejs should be student profile page
+// profile ejs allows to see profile and edit 
+temp files 
