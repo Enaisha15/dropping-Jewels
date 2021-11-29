@@ -49,7 +49,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
   });
   
   //feed page
-  app.get("/feed", function (req, res) {
+  app.get("/feed",isLoggedIn, function (req, res) {
     db.collection("posts")
       .find()
       .toArray((err, result) => {
@@ -101,7 +101,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
   });
 
   // post routes // nested call back 
-  app.post("/makePost", upload.single("file-to-upload"), (req, res) => {
+  app.post("/makePost",isLoggedIn, upload.single("file-to-upload"), (req, res) => {
     let image 
     if(req?.file?.filename === ""){
      image = ""
@@ -126,7 +126,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
    
   });
 // s
-  app.post('/upDateProfile',upload.single("profilePic"),(req, res) => {
+  app.post('/upDateProfile',isLoggedIn,upload.single("profilePic"),(req, res) => {
     let user = req.user._id;
     console.log('test',req.body)
     console.log(req.file)
@@ -150,7 +150,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
 
   // message board routes ===============================================================
 
-  app.put("/likes", (req, res) => {
+  app.put("/likes",isLoggedIn, (req, res) => {
     const _id = req.body._id;
     db.collection("posts").findOneAndUpdate(
       { _id: ObjectId(_id) },
@@ -170,7 +170,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
     );
   });
 
-  app.put("/post/comments/likes", (req, res) => {
+  app.put("/post/comments/likes",isLoggedIn, (req, res) => {
     const _id = req.body._id;
     db.collection("posts").findOneAndUpdate(
       { _id: ObjectId(_id) },
@@ -190,7 +190,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
     );
   });
 
-  app.post("/post/comments/submit", (req, res) => {
+  app.post("/post/comments/submit",isLoggedIn, (req, res) => {
     let user = req.user;
     let time = new Date().toLocaleString();
     const postId = ObjectId(req.body.postId);
@@ -224,7 +224,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
     );
   });
 
-  app.delete("/messages", (req, res) => {
+  app.delete("/messages",isLoggedIn, (req, res) => {
     db.collection("posts").findOneAndDelete(
       {_id:ObjectId(req.body.postId)},
       (err, result) => {
@@ -236,7 +236,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
 // mentor stuff 
 // this renders the page with post with all the posts // this renders the mentor feed 
 // when i click on the post the mentor can veiw the post and reply 
-app.get("/mentorfeed", function (req, res) {  
+app.get("/mentorfeed",isLoggedIn, function (req, res) {  
   db.collection("posts")
     .find()
     .toArray((err, result) => {
@@ -247,9 +247,9 @@ app.get("/mentorfeed", function (req, res) {
     });
 });
 // socket io chat 
-app.get('/chat', (req, res) => {
+app.get('/chat',isLoggedIn, (req, res) => {
   io.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log('a user connected');  // to get user name req.user. mongo db the name of filed 
   });
   res.render('chat.ejs');
 });
@@ -264,9 +264,6 @@ app.get('/chat', (req, res) => {
     res.render("login.ejs", { message: req.flash("loginMessage") });
   });
  
-
-
-
   //process the login form
   app.post(
     "/login",

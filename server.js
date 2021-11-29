@@ -27,12 +27,12 @@ const io = new Server(server);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-});
-io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
+  console.log('message: ' + msg);
+  io.emit("chat message",msg );
   });
 });
+
 
 
 // const { Server } = require("socket.io");
