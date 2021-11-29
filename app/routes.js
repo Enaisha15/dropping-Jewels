@@ -246,6 +246,13 @@ app.get("/mentorfeed", function (req, res) {
       });
     });
 });
+// socket io chat 
+app.get('/chat', (req, res) => {
+  io.on('connection', (socket) => {
+    console.log('a user connected');
+  });
+  res.render('chat.ejs');
+});
   // =============================================================================
   // AUTHENTICATE (FIRST LOGIN) ==================================================
   // =============================================================================

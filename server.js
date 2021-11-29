@@ -21,14 +21,28 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 var db
+const server = require('http').createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(http);
-console.log(io)
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+  });
+});
+
+
+// const { Server } = require("socket.io");
+// const io = new Server(http);
+// console.log(io)
 // configuration ===============================================================
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err)
   db = database
-  require('./app/routes.js')(app, passport, db, multer, ObjectId,io);
+  require('./app/routes.js')(app, passport, db, multer, ObjectId, io);
 }); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
@@ -57,5 +71,5 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 // launch ======================================================================
-app.listen(port);
+server.listen(port);
 console.log('The magic happens on port ' + port);
