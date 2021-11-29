@@ -21,7 +21,7 @@
 
     <div class="page-header text-center">
         <h1>Homework Help</h1>
-        <a href="/feed1.ejs">Your Profile</a>
+        <a href="/profile">Your Profile</a>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
@@ -52,7 +52,6 @@
                 <% } %>
               </ul>
 
-              <button class="comment"><a href="/post/comments/<%= posts[i]._id %>">give feedback</a></button>
             </li>
           <% } %>
           </ul>
@@ -60,8 +59,7 @@
 
 </div>
 
-
 <script src="main.js"></script>
-
+<script src="/socket.io/socket.io.js"></script>
 </body>
 </html>

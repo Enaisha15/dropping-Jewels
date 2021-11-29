@@ -1,5 +1,5 @@
 const ObjectId = require("mongodb").ObjectId;
-module.exports = function (app, passport, db, multer, ObjectId) {
+module.exports = function (app, passport, db, multer, ObjectId,io) {
   // Image Upload Code =========================================================================
   var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -21,25 +21,15 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   // PROFILE SECTION =========================
   app.get("/profile", isLoggedIn, function (req, res) {
     db.collection("posts")
-      .find({ postedBy: req.user._id })
-      .toArray((err, result) => {
+      .find()
+      .toArray((err, results) => {
         if (err) return console.log(err);
         db.collection("users")
-        .findOne({_id: ObjectId(req.user._id)},(err, users) => {
-         console.log(users.local.role)
-          if(users.local.role === 'student'){
+        .findOne({_id: ObjectId(req.user._id)},(err, user) => {
             res.render("profile.ejs", {
-              user: req.user,
-              posts: result,
+              user: user,
+              posts: results,
             });
-          }else{
-            res.render("mentorprofile.ejs", {
-              user: req.user,
-              posts: result,
-            });
-             }
-             ;
-          
         
       });
   });
@@ -251,7 +241,7 @@ app.get("/mentorfeed", function (req, res) {
     .find()
     .toArray((err, result) => {
       if (err) return console.log(err);
-      res.render("posts.ejs", {
+      res.render("postsdontknow.ejs", {
         posts: result,
       });
     });
@@ -266,15 +256,9 @@ app.get("/mentorfeed", function (req, res) {
   app.get("/login", function (req, res) {
     res.render("login.ejs", { message: req.flash("loginMessage") });
   });
-  app.get("/loginsignup", function (req, res) {
-    res.render("login.ejs", { message: req.flash("loginMessage") });
-  });
+ 
 
 
-  app.get("/mentorlogin", function (req, res) {
-    res.render("mentorlogin.ejs", { message: req.flash("loginMessage") });
-
-  });
 
   //process the login form
   app.post(
@@ -285,22 +269,13 @@ app.get("/mentorfeed", function (req, res) {
       failureFlash: true, // allow flash messages
     })
   );
-  app.post(
-    "/mentorlogin",
-    passport.authenticate("local-login", {
-      successRedirect: "/mentorfeed", // redirect to the secure profile section
-      failureRedirect: "/mentorlogin", // redirect back to the signup page if there is an error
-      failureFlash: true, // allow flash messages
-    })
-  );
+ 
   // SIGNUP =================================
-  // show the signup form
+  // show the signup for
   app.get("/signup", function (req, res) {
     res.render("signup.ejs", { message: req.flash("signupMessage") });
   });
-  app.get("/mentorsignup", function (req, res) {
-    res.render("mentorsignup.ejs", { message: req.flash("signupMessage") });
-  });
+ 
   // process the signup form
   app.post(
     "/signup",
@@ -310,14 +285,7 @@ app.get("/mentorfeed", function (req, res) {
       failureFlash: true, // allow flash messages
     })
   );
-  app.post(
-    "/mentorsignup",
-    passport.authenticate("local-signup", {
-      successRedirect: "/mentorfeed", // redirect to the secure profile section
-      failureRedirect: "/mentorsignup", // redirect back to the signup page if there is an error
-      failureFlash: true, // allow flash messages
-    })
-  );
+ 
   // =============================================================================
   // UNLINK ACCOUNTS =============================================================
   // =============================================================================

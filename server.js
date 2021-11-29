@@ -4,6 +4,7 @@
 // get all the tools we need
 var express  = require('express');
 var app      = express();
+const http = require('http').Server(app)
 var port     = process.env.PORT || 8002;
 const MongoClient = require('mongodb').MongoClient
 var mongoose = require('mongoose');
@@ -20,12 +21,14 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 var db
-
+const { Server } = require("socket.io");
+const io = new Server(http);
+console.log(io)
 // configuration ===============================================================
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err)
   db = database
-  require('./app/routes.js')(app, passport, db, multer, ObjectId);
+  require('./app/routes.js')(app, passport, db, multer, ObjectId,io);
 }); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration

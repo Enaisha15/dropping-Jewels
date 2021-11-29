@@ -48,9 +48,9 @@ Array.from(commentButton).forEach(function (element) {
   });
 });
 
-  // searchb.addEventListener('click', function(e){
-  //     window.location.href = "/search/"+searchi.value
-  //   })
+// //  searchb.addEventListener('click', function(e){
+//       window.location.href = "/search/"+searchi.value
+//     })
   
 
 Array.from(Delete).forEach(function(element) {
