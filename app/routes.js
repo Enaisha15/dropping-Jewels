@@ -112,16 +112,16 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
       });
   });
   // filtermentorpage//
-  // app.get("/filtermentor/:text", isLoggedIn, function (req, res) {
-  //   db.collection("posts")
-  //     .find({ $text: { $search: req.params.text } })
-  //     .toArray((err, result) => {
-  //       if (err) return console.log(err);
-  //       res.render("searchmentor.ejs", {
-  //         posts: result,
-  //       });
-  //     });
-  // });
+  app.get("/filtermentor/:text", function (req, res) {
+    db.collection("users")
+      .find({ $text: { $filtermentor: req.params.text } })
+      .toArray((err, result) => {
+        if (err) return console.log(err);
+        res.render("searchmentor.ejs", {
+          posts: result,
+        });
+      });
+  });
   // LOGOUT ==============================
   app.get("/logout", function (req, res) {
     req.logout();

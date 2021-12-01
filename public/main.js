@@ -2,6 +2,9 @@ var likeButton = document.getElementsByClassName("like");
 var Delete = document.getElementsByClassName("Delete");
 var searchi = document.getElementById("searchinput")
 var searchb = document.getElementById('searchbutton')
+var searchmentori = document.getElementById('searchmentori')
+var searchmentorb = document.getElementById('searchmentorb')
+
 
 
 Array.from(likeButton).forEach(function (element) {
@@ -52,6 +55,16 @@ if(searchb){
   searchb.addEventListener('click', function(e){
     window.location.href = "/search/"+searchi.value
    })
+}
+
+
+
+if(searchmentorb){
+  searchmentorb.addEventListener('click', function(e){
+    window.location.href = "/filtermentor/"+searchmentori.value
+    console.log("this is the value",searchmentori.value)
+   })
+   
 }
 
   // everything high up in main.js will break or stop below it 
