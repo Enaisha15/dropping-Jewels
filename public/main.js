@@ -48,10 +48,13 @@ Array.from(commentButton).forEach(function (element) {
   });
 });
 
-// //  searchb.addEventListener('click', function(e){
-//       window.location.href = "/search/"+searchi.value
-//     })
-  
+if(searchb){
+  searchb.addEventListener('click', function(e){
+    window.location.href = "/search/"+searchi.value
+   })
+}
+
+  // everything high up in main.js will break or stop below it 
 
 Array.from(Delete).forEach(function(element) {
   element.addEventListener('click', function(e){

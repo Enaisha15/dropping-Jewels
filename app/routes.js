@@ -26,6 +26,10 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
         if (err) return console.log(err);
         db.collection("users")
         .findOne({_id: ObjectId(req.user._id)},(err, user) => {
+          console.log(user,results)
+          // console.log(results.map(post => post.postedBy.trim() === user._id.trim()))
+          console.log(results.filter(post => post.postedBy.toString() === user._id.toString() ))
+          console.log(user._id.toString())
             res.render("profile.ejs", {
               user: user,
               posts: results,
@@ -44,6 +48,19 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
         res.render("edit.ejs", {
           user: result,
           // posts: result,
+        });
+      });
+  });
+  
+  // searchmentorpage 
+  app.get("/searchmentor", isLoggedIn, function (req, res) {
+    db.collection("users")
+      .find({"local.mentor":true})
+      .toArray((err, result) => {
+        console.log("mentorresult" + result)
+        if (err) return console.log(err);
+        res.render("searchmentor.ejs", {
+          user: result
         });
       });
   });
@@ -94,6 +111,17 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
         });
       });
   });
+  // filtermentorpage//
+  // app.get("/filtermentor/:text", isLoggedIn, function (req, res) {
+  //   db.collection("posts")
+  //     .find({ $text: { $search: req.params.text } })
+  //     .toArray((err, result) => {
+  //       if (err) return console.log(err);
+  //       res.render("searchmentor.ejs", {
+  //         posts: result,
+  //       });
+  //     });
+  // });
   // LOGOUT ==============================
   app.get("/logout", function (req, res) {
     req.logout();

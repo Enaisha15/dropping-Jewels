@@ -77,7 +77,7 @@
 								<a href="#" id="profilelink" data-bs-toggle="dropdown" data-bs-offset="0,15" aria-haspopup="true" aria-expanded="false" data-offset="12,12"><img class="rounded-circle" src="" alt="User"></a>
 								<div class="dropdown-menu dropdown-menu-end py-0 m-0" aria-labelledby="profilelink">
 									<a class="dropdown-item" href="edit"><i class="icon-line-edit me-2"></i>Edit Profile</a>
-									<a class="dropdown-item" href="demo-forum-single.html"><i class="icon-line-align-left me-2"></i>Your Topics</a>
+									
 									<a class="dropdown-item" href="/logout"><i class="icon-line-log-out me-2"></i>Sign Out</a>
 								</div>
 							</div>
@@ -93,12 +93,11 @@
 						<nav class="primary-menu">
 
 							<ul class="menu-container">
-								<li class="menu-item current"><a class="menu-link" href="demo-forum.html"><div>Home</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="demo-forum-single.html"><div>Topic Page</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="#" data-bs-toggle="modal" data-bs-target="#modal-signin"><div>Create</div></a></li>
+								<li class="menu-item current"><a class="menu-link" href="home"><div>Home</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="demo-forum-single.html"><div>Community Resources</div></a></li>
+								
 								<li class="menu-item"><a class="menu-link" href="profile"><div>Profile</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="demo-forum-search-result.html"><div>Search Page</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="demo-forum-signin.html"><div>Sign In Page</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="demo-forum-search-result.html"><div>Search For A Mentor</div></a></li>
 								<li class="menu-item current"><a class="menu-link" href="/chat"><div>Join Chat</div></a></li>
 							</ul>
 
@@ -244,7 +243,7 @@
 										<% } %>
 								<% } %>
 								<% if (!user.local.mentor) { %>
-									<% posts.filter(post => post.postedBy === user._id).forEach(post => { %>
+									<% posts.filter(post => post.postedBy.toString() === user._id.toString() ).forEach(post => { %>
 										<ul class="topic list-unstyled row mx-0 justify-content-between align-items-center">
 											<li class="entry mb-0 col-sm-10">
 												<!-- Title of Post-->
