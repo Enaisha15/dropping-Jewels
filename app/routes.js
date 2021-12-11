@@ -20,6 +20,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
 
   // PROFILE SECTION =========================
   app.get("/profile", isLoggedIn, function (req, res) {
+    console.log(req)
     db.collection("posts")
       .find()
       .toArray((err, results) => {
@@ -27,7 +28,6 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
         db.collection("users")
         .findOne({_id: ObjectId(req.user._id)},(err, user) => {
           console.log(user,results)
-          // console.log(results.map(post => post.postedBy.trim() === user._id.trim()))
           console.log(results.filter(post => post.postedBy.toString() === user._id.toString() ))
           console.log(user._id.toString())
             res.render("profile.ejs", {
@@ -139,7 +139,8 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
         {
           caption: req.body.caption,
           img: image ,
-          postedBy: req.user._id,
+          postedBy: req.user._id, 
+          userName: req.user.local.email,
           posterrole: req.user.local.role,
           like: 0,
           comment: [],
@@ -153,7 +154,7 @@ module.exports = function (app, passport, db, multer, ObjectId,io) {
   
    
   });
-// s
+
   app.post('/upDateProfile',isLoggedIn,upload.single("profilePic"),(req, res) => {
     let user = req.user._id;
     console.log('test',req.body)
@@ -281,6 +282,7 @@ app.get('/chat',isLoggedIn, (req, res) => {
   });
   res.render('chat.ejs');
 });
+
   // =============================================================================
   // AUTHENTICATE (FIRST LOGIN) ==================================================
   // =============================================================================
@@ -296,7 +298,7 @@ app.get('/chat',isLoggedIn, (req, res) => {
   app.post(
     "/login",
     passport.authenticate("local-login", {
-      successRedirect: "/profile", // redirect to the secure profile section
+      successRedirect: "/feed", // redirect to the secure profile section
       failureRedirect: "/login", // redirect back to the signup page if there is an error
       failureFlash: true, // allow flash messages
     })
