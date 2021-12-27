@@ -5,7 +5,7 @@
 var express  = require('express');
 var app      = express();
 const http = require('http').Server(app)
-var port     = process.env.PORT || 8002;
+var port     = process.env.PORT || ;
 const MongoClient = require('mongodb').MongoClient
 var mongoose = require('mongoose');
 var passport = require('passport');
